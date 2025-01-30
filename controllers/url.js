@@ -13,7 +13,10 @@ async function handleGenerateNewShortUrl(req,res) {
             visitedHistory:[]
         });
 
-        return res.json({ id: shortId});
+        // return res.json({ id: shortId});
+        return res.render('home',{
+            id:shortId
+        })
 }
 
 
@@ -29,6 +32,10 @@ async function redirectShortUrl(req,res) {
              }
          }
      });
+
+     if (!entry) {
+        return res.status(404).json({ error: 'Short URL not found' });
+    }
      res.redirect(entry.redirectUrl);
 }
 

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Shortened URLs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-4">Generate Short URLs</h1>
+        <form method="post" action="/url" class="mb-6">
+            <label for="url" class="block mb-2">Enter your original URL:</label>
+            <input 
+                type="text" 
+                name="url" 
+                id="url" 
+                class="w-full p-2 border rounded mb-4" 
+                placeholder="https://www.google.com/" 
+                required
+            />
+            <button 
+                type="submit" 
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+                Generate Short URL
+            </button>
+        </form>
+
+        <% if (locals.id) { %>
+        <div class="mb-6 p-4 bg-green-100 rounded">
+            <p>URL Generated: <a href="http://localhost:8001/url/<%= id %>" class="text-blue-500 underline">http://localhost:8001/url/<%= id %></a></p>
+        </div>
+        <% } %>
+
+        <% if (locals.allShortUrlss) { %>
+        <table class="w-full text-left border-collapse bg-white shadow-md rounded">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-4 border-b text-gray-700">S.No</th>
+                    <th class="p-4 border-b text-gray-700">Short ID</th>
+                    <th class="p-4 border-b text-gray-700">Redirect</th>
+                    <th class="p-4 border-b text-gray-700">Clicks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% allShortUrlss.forEach((url, index) => { %>
+                <tr class="hover:bg-gray-100 transition">
+                    <td class="p-4 border-b"><%= index + 1 %></td>
+                    <td class="p-4 border-b"><%= url.shortId %></td>
+                    <td class="p-4 border-b">
+                        <a href="http://localhost:8001/url/<%= url.shortId %>" class="text-blue-500 underline">
+                            <%= url.redirectUrl %>
+                        </a>
+                    </td>
+                    <td class="p-4 border-b"><%= url.visitHistory.length %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <% } %>
+    </div>
+</body>
+</html>

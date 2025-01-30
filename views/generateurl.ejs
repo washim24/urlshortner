@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Shortened URLs</title>
+</head>
+<body>
+    <h1>All Shortened URLs</h1>
+    <ul>
+        <% allShortUrlss.forEach(url => { %>
+            <li>
+                <strong>Short ID:</strong> <%= url.shortId %> <br>
+                <strong>Redirect URL:</strong> <%= url.redirectUrl %>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
